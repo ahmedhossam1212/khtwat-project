@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-const String _fontFamily = 'Aref Ruqaa';
+//const String _fontFamily = 'Aref Ruqaa';
 
 TextStyle _getTextStyle(double fontSize, FontWeight fontWeight, Color color) {
   return TextStyle(
     fontSize: fontSize,
     color: color,
     fontWeight: fontWeight,
-    fontFamily: _fontFamily,
+    // fontFamily: _fontFamily,
   );
 }
 
