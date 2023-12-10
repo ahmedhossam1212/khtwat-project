@@ -18,6 +18,7 @@ dependencies:
   
   cupertino_icons: ^1.0.2
   enefty_icons: ^1.0.7
+  popover: ^0.2.8+2
 
 dev_dependencies:
   flutter_test:

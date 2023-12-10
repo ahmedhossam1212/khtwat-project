@@ -26,6 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool isPassword = true;
   var formKey = GlobalKey<FormState>();
+  List levels = ["الاول", "الثاني", "الثالث", "الرابع"];
+  List departments = ["كمياء", "فزياء", "حاسب", "رياضيات"];
 
   @override
   void dispose() {
@@ -64,7 +66,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: EdgeInsets.only(
+                  right: context.width * 0.05,
+                  left: context.width * 0.05,
+                  top: context.height * 0.01),
               child: Form(
                 key: formKey,
                 child: Column(
@@ -107,49 +112,69 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: context.height * 0.03,
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: defualtFormField(context,
-                              controller: levelController,
-                              validate: (String value) {
-                            if (value.isEmpty) {
-                              return "الرجاء ادخال المستوي";
-                            }
-                          },
-                              hint: AppStrings.level,
-                              type: TextInputType.text,
-                              width: double.infinity,
-                              suffix: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    EneftyIcons.arrow_down_outline,
-                                    color: AppColors.primary,
-                                  ))),
-                        ),
-                        SizedBox(
-                          width: context.width * 0.03,
-                        ),
-                        Expanded(
-                          child: defualtFormField(context,
-                              controller: departmentController,
-                              validate: (String value) {
-                            if (value.isEmpty) {
-                              return "الرجاء ادخال القسم";
-                            }
-                          },
-                              hint: AppStrings.department,
-                              type: TextInputType.text,
-                              width: double.infinity,
-                              suffix: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    EneftyIcons.arrow_down_outline,
-                                    color: AppColors.primary,
-                                  ))),
-                        ),
-                      ],
+                    defualtFormField(context, controller: levelController,
+                        validate: (String value) {
+                      if (value.isEmpty) {
+                        return "الرجاء ادخال المستوي";
+                      }
+                    },
+                        hint: AppStrings.level,
+                        type: TextInputType.text,
+                        width: double.infinity,
+                        suffix: DropdownButton<String>(
+                          borderRadius: BorderRadius.circular(15),
+                          elevation: 5,
+                          icon: Icon(
+                            EneftyIcons.arrow_down_outline,
+                            color: AppColors.primary,
+                          ),
+                          items: levels
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontSize: 20, color: AppColors.black),
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (item) => setState(() {
+                            levelController.text = item!;
+                          }),
+                        )),
+                    SizedBox(
+                      height: context.height * 0.03,
                     ),
+                    defualtFormField(context, controller: departmentController,
+                        validate: (String value) {
+                      if (value.isEmpty) {
+                        return "الرجاء ادخال القسم";
+                      }
+                    },
+                        hint: AppStrings.department,
+                        type: TextInputType.text,
+                        width: double.infinity,
+                        suffix: DropdownButton<String>(
+                          borderRadius: BorderRadius.circular(15),
+                          elevation: 5,
+                          icon: Icon(
+                            EneftyIcons.arrow_down_outline,
+                            color: AppColors.primary,
+                          ),
+                          items: departments
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: TextStyle(
+                                          fontSize: 20, color: AppColors.black),
+                                    ),
+                                  ))
+                              .toList(),
+                          onChanged: (item) => setState(() {
+                            departmentController.text = item!;
+                          }),
+                        )),
                     SizedBox(
                       height: context.height * 0.03,
                     ),

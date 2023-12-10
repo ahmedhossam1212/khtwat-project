@@ -5,6 +5,7 @@ import 'package:khtwat_project/core/utils/app_colors.dart';
 import 'package:khtwat_project/core/utils/app_strings.dart';
 import 'package:khtwat_project/core/utils/media_query_values.dart';
 import 'package:khtwat_project/core/utils/style_manager.dart';
+import 'package:khtwat_project/presntation/view/screens/home.dart';
 import 'package:khtwat_project/presntation/view/screens/register.dart';
 import 'package:khtwat_project/presntation/view/widgets/input_field.dart';
 import 'package:khtwat_project/presntation/view/widgets/main_button.dart';
@@ -47,7 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: EdgeInsets.only(
+                  right: context.width * 0.05,
+                  left: context.width * 0.05,
+                  top: context.height * 0.01),
               child: Form(
                 key: formKey,
                 child: Column(
@@ -138,10 +142,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           )),
                     ),
                     SizedBox(
-                      height: context.height * 0.17,
+                      height: context.height * 0.1,
                     ),
                     mainButton(context, onpressd: () {
-                      if (formKey.currentState!.validate()) {}
+                      if (formKey.currentState!.validate()) {
+                        navigatTo(context, Testmenu());
+                      }
                     }, background: AppColors.primary, text: AppStrings.signIn),
                     SizedBox(
                       height: context.height * 0.02,
