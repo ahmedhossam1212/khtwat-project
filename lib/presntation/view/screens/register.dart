@@ -5,20 +5,25 @@ import 'package:khtwat_project/core/utils/app_colors.dart';
 import 'package:khtwat_project/core/utils/app_strings.dart';
 import 'package:khtwat_project/core/utils/media_query_values.dart';
 import 'package:khtwat_project/core/utils/style_manager.dart';
-import 'package:khtwat_project/presntation/view/screens/register.dart';
+import 'package:khtwat_project/presntation/view/screens/login_screen.dart';
 import 'package:khtwat_project/presntation/view/widgets/input_field.dart';
 import 'package:khtwat_project/presntation/view/widgets/main_button.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController idController = TextEditingController();
   final TextEditingController passController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController departmentController = TextEditingController();
+  final TextEditingController levelController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+
   bool isPassword = true;
   var formKey = GlobalKey<FormState>();
 
@@ -27,6 +32,10 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
     idController.dispose();
     passController.dispose();
+    phoneController.dispose();
+    departmentController.dispose();
+    levelController.dispose();
+    nameController.dispose();
   }
 
   @override
@@ -34,9 +43,17 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              EneftyIcons.arrow_left_3_outline,
+              color: AppColors.black,
+            )),
         elevation: 0.0,
         title: Text(
-          AppStrings.signIn,
+          AppStrings.signUp,
           style: getBoldStyle(color: AppColors.primary, fontSize: 25),
         ),
         centerTitle: true,
@@ -51,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Form(
                 key: formKey,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Directionality(
                       textDirection: TextDirection.ltr,
@@ -71,19 +89,69 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     SizedBox(
+                      height: context.height * 0.1,
+                    ),
+                    defualtFormField(context, controller: nameController,
+                        validate: (String value) {
+                      if (value.isEmpty) {
+                        return "رجاء ادخال الاسم";
+                      }
+                    },
+                        hint: AppStrings.fullname,
+                        type: TextInputType.name,
+                        width: double.infinity,
+                        suffix: Icon(
+                          EneftyIcons.user_outline,
+                          color: AppColors.primary,
+                        )),
+                    SizedBox(
                       height: context.height * 0.03,
                     ),
-                    SizedBox(
-                      width: context.width * 0.5,
-                      child: Text(
-                        AppStrings.loginWelcom,
-                        textAlign: TextAlign.center,
-                        style:
-                            getLightStyle(color: AppColors.grey, fontSize: 15),
-                      ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: defualtFormField(context,
+                              controller: levelController,
+                              validate: (String value) {
+                            if (value.isEmpty) {
+                              return "الرجاء ادخال المستوي";
+                            }
+                          },
+                              hint: AppStrings.level,
+                              type: TextInputType.text,
+                              width: double.infinity,
+                              suffix: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    EneftyIcons.arrow_down_outline,
+                                    color: AppColors.primary,
+                                  ))),
+                        ),
+                        SizedBox(
+                          width: context.width * 0.03,
+                        ),
+                        Expanded(
+                          child: defualtFormField(context,
+                              controller: departmentController,
+                              validate: (String value) {
+                            if (value.isEmpty) {
+                              return "الرجاء ادخال القسم";
+                            }
+                          },
+                              hint: AppStrings.department,
+                              type: TextInputType.text,
+                              width: double.infinity,
+                              suffix: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    EneftyIcons.arrow_down_outline,
+                                    color: AppColors.primary,
+                                  ))),
+                        ),
+                      ],
                     ),
                     SizedBox(
-                      height: context.height * 0.1,
+                      height: context.height * 0.03,
                     ),
                     defualtFormField(context, controller: idController,
                         validate: (String value) {
@@ -100,7 +168,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: AppColors.primary,
                         )),
                     SizedBox(
-                      height: context.height * 0.05,
+                      height: context.height * 0.03,
+                    ),
+                    defualtFormField(context, controller: phoneController,
+                        validate: (String value) {
+                      if (value.length < 11 || value.length > 11) {
+                        return "يجب ان يكون الرقم 11 ارقام";
+                      }
+                      return null;
+                    },
+                        hint: AppStrings.phoneNum,
+                        type: TextInputType.number,
+                        width: double.infinity,
+                        suffix: Icon(
+                          EneftyIcons.call_outline,
+                          color: AppColors.primary,
+                        )),
+                    SizedBox(
+                      height: context.height * 0.03,
                     ),
                     defualtFormField(context, controller: passController,
                         validate: (String value) {
@@ -125,24 +210,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               color: AppColors.primary,
                             ))),
                     SizedBox(
-                      height: context.height * 0.03,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            AppStrings.forgetPassword,
-                            style: getBoldStyle(
-                                color: AppColors.black, fontSize: 15),
-                          )),
-                    ),
-                    SizedBox(
-                      height: context.height * 0.17,
+                      height: context.height * 0.05,
                     ),
                     mainButton(context, onpressd: () {
                       if (formKey.currentState!.validate()) {}
-                    }, background: AppColors.primary, text: AppStrings.signIn),
+                    }, background: AppColors.primary, text: AppStrings.signUp),
                     SizedBox(
                       height: context.height * 0.02,
                     ),
@@ -150,16 +222,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          AppStrings.dontHaveAcount,
+                          AppStrings.alreadyHaveAccount,
                           style: getLightStyle(
                               color: AppColors.black, fontSize: 15),
                         ),
                         TextButton(
                           onPressed: () {
-                            navigatTo(context, const RegisterScreen());
+                            navigateAndFinish(
+                              context,
+                              const LoginScreen(),
+                            );
                           },
                           child: Text(
-                            AppStrings.signUp,
+                            AppStrings.signIn,
                             style: getLightStyle(
                                 color: AppColors.primary, fontSize: 15),
                           ),
