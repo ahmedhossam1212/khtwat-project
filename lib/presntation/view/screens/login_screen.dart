@@ -5,7 +5,6 @@ import 'package:khtwat_project/core/utils/app_colors.dart';
 import 'package:khtwat_project/core/utils/app_strings.dart';
 import 'package:khtwat_project/core/utils/media_query_values.dart';
 import 'package:khtwat_project/core/utils/style_manager.dart';
-import 'package:khtwat_project/presntation/view/screens/home.dart';
 import 'package:khtwat_project/presntation/view/screens/register.dart';
 import 'package:khtwat_project/presntation/view/widgets/input_field.dart';
 import 'package:khtwat_project/presntation/view/widgets/main_button.dart';
@@ -145,9 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: context.height * 0.1,
                     ),
                     mainButton(context, onpressd: () {
-                      if (formKey.currentState!.validate()) {
-                        navigatTo(context, Testmenu());
-                      }
+                      if (formKey.currentState!.validate()) {}
                     }, background: AppColors.primary, text: AppStrings.signIn),
                     SizedBox(
                       height: context.height * 0.02,

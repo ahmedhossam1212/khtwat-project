@@ -134,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     child: Text(
                                       item,
                                       style: TextStyle(
-                                          fontSize: 20, color: AppColors.black),
+                                          fontSize: 12, color: AppColors.black),
                                     ),
                                   ))
                               .toList(),
@@ -167,7 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     child: Text(
                                       item,
                                       style: TextStyle(
-                                          fontSize: 20, color: AppColors.black),
+                                          fontSize: 12, color: AppColors.black),
                                     ),
                                   ))
                               .toList(),
